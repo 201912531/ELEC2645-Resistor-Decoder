@@ -54,13 +54,15 @@ void select_menu_item(int input) {
       printf("Exiting program ... \n");
       exit(0);
     default:
-      printf("Invalid selection. Exiting... \n");
-      exit(1);
-  }
+      printf("\nInvalid selection. Please choose an option from the menu.\n");
+      main_menu();  // restart menu
+      break;
+  
+  }     
 }
 
 void print_main_menu(void) {
-  printf("\n Hi, I'm your resistor decoder buddy. Please choose an option from the menu items below:\n");
+  printf("\n Hi, I'm your lab assistant bot. Please choose an option from the menu items below:\n");
   printf("1.) Automatic resistor decoder\n");
   printf("2.) Show color table\n");
   printf("3.) Help\n");
