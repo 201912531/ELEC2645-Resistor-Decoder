@@ -137,9 +137,36 @@ void menu_show_color_table(void) {
 
 
 void menu_help(void) {
-  printf("\n not done");
-  go_back_to_main();
+    printf("\n============================ Help ============================\n");
+
+    printf("\nOverview:\n");
+    printf("This program is designed to assist electrical engineers in the lab.\n");
+    printf("Instead of using an Ohmmeter or manually decoding every resistor you need,\n");
+    printf("this program will do it for you!\n");
+    printf("Simply follow the prompts and enter the colors of each band of the resistor.\n");
+
+    printf("\nHow is a resistor read?\n");
+    printf("The colors of the bands of a resistor tell us its value.\n");
+    printf("Band 1 = first digit (cannot usually be 0)\n");
+    printf("Band 2 = second digit\n");
+    printf("Band 3 = multiplier (power of ten)\n");
+    printf("Band 4 = tolerance (accuracy range)\n");
+
+    printf("\nHow do I use this program?\n");
+    printf("If you have a resistor you would like to decode:\n");
+    printf("1) Choose option 1 from the main menu.\n");
+    printf("2) Select the color of the first band (digit band 1).\n");
+    printf("3) Select the color of the second band (digit band 2).\n");
+    printf("4) Select the color of the third band (multiplier band).\n");
+    printf("5) Select the color of the fourth band (tolerance band).\n");
+    printf("6) Read the final resistance and range in the result.\n");
+
+    printf("\n==============================================================\n");
+
+    go_back_to_main();
 }
+
+
 
 // resistor decoder functions
 int get_digit_band(int band_number) {
@@ -170,6 +197,7 @@ int get_digit_band(int band_number) {
 float get_multiplier_band(void) {
   int choice;
   printf("\nSelect colour of 3rd band (multipler band):\n");
+  printf("Enter choice (0–11): \n");
   printf("0: Black\n");
   printf("1: Brown\n");
   printf("2: Red\n");
@@ -206,6 +234,7 @@ float get_multiplier_band(void) {
 void get_tolerance_band(float *tolerance_percent) {
   int choice;
   printf("\nSelect color of 4th band (tolerance band):\n");
+  printf("Enter choice (1–8): \n");
   printf("1: Brown\n");
   printf("2: Red\n");
   printf("3: Green\n");
