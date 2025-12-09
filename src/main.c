@@ -13,6 +13,8 @@ float get_multiplier_band(void);
 void get_tolerance_band(float *tolerance_percent);
 void print_resistance(float r);
 void decoding_animation(void);
+void save_results(int base, float multiplier, float resistance, float tolerance, float min_val, float max_val);
+
 
 
 // resistor decoder menu items
@@ -119,6 +121,14 @@ void menu_resistor_decoder(void) {
   printf("Range: %.2f Ω  to  %.2f Ω\n", min_val, max_val);
   printf("=============================================================\n");
 
+  char save_choice;
+  printf("\nWould you like to save these results? (Y/N): ");
+  scanf(" %c", &save_choice);
+  
+  if (save_choice == 'y' || save_choice == 'Y') {
+      save_results(base, multiplier, resistance, tolerance, min_val, max_val);
+  }
+
 
     go_back_to_main();
 }
@@ -171,6 +181,12 @@ void menu_help(void) {
     printf("5) Select the color of the fourth band (tolerance band).\n");
     printf("6) Read the final resistance and range in the result.\n");
 
+    printf("\nASCII diagram of a 4 band resistor:\n");
+    printf("   ________|====|====|====|====|________\n");
+    printf("             B1   B2   B3   B4\n");
+    printf("             |    |    |    |\n");
+    printf("         Digit  Digit  Mult  Tol\n");
+
     printf("\n==============================================================\n");
 
     go_back_to_main();
@@ -182,8 +198,8 @@ void menu_help(void) {
 int get_digit_band(int band_number) {
     int choice;
     int min_allowed = 0;
-
-    printf("\nSelect color of digit band %d:\n", band_number);
+  
+    printf("\nSelect color of band %d (digit band): \n", band_number);
     printf("0: Black\n");
     printf("1: Brown\n");
     printf("2: Red\n");
@@ -194,6 +210,7 @@ int get_digit_band(int band_number) {
     printf("7: Violet\n");
     printf("8: Grey\n");
     printf("9: White\n");
+    
 
     if (band_number == 1) {
         printf("Note: Band 1 cannot be black (0).\n");
@@ -219,7 +236,6 @@ int get_digit_band(int band_number) {
 float get_multiplier_band(void) {
   int choice;
   printf("\nSelect colour of 3rd band (multipler band):\n");
-  printf("Enter choice (0–11): \n");
   printf("0: Black\n");
   printf("1: Brown\n");
   printf("2: Red\n");
@@ -232,6 +248,7 @@ float get_multiplier_band(void) {
   printf("9: White\n");
   printf("10: Gold\n");
   printf("11: Silver\n");
+  printf("Enter choice (0–11): ");
   scanf("%d", &choice);
   
   switch (choice) {
@@ -256,7 +273,6 @@ float get_multiplier_band(void) {
 void get_tolerance_band(float *tolerance_percent) {
   int choice;
   printf("\nSelect color of 4th band (tolerance band):\n");
-  printf("Enter choice (1–8): \n");
   printf("1: Brown\n");
   printf("2: Red\n");
   printf("3: Green\n");
@@ -265,6 +281,7 @@ void get_tolerance_band(float *tolerance_percent) {
   printf("6: Grey\n");
   printf("7: Gold\n");
   printf("8: Silver\n");
+  printf("Enter choice (1–8): ");
   scanf("%d", &choice);
 
   switch(choice) {
@@ -281,6 +298,28 @@ void get_tolerance_band(float *tolerance_percent) {
             *tolerance_percent = 0.05f;
     }
 }
+
+void save_results(int base, float multiplier, float resistance, float tolerance, float min_val, float max_val) {
+  FILE *file = fopen("saved_results.txt", "a"); 
+  if (file == NULL) {
+      printf("Error opening file. Results not saved.\n");
+      return;
+  }
+
+    fprintf(file, "======================================\n");
+    fprintf(file, "Base value: %d\n", base);
+    fprintf(file, "Multiplier: %.2f\n", multiplier);
+    fprintf(file, "Nominal resistance: %.2f Ω\n", resistance);
+    fprintf(file, "Tolerance: ±%.2f%%\n", tolerance * 100);
+    fprintf(file, "Range: %.2f Ω to %.2f Ω\n", min_val, max_val);
+    fprintf(file, "======================================\n\n");
+
+    fclose(file);
+
+    printf("Results successfully saved to saved_results.txt!\n");
+}
+
+
 
 
 
