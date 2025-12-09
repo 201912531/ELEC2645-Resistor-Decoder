@@ -12,12 +12,14 @@ int get_digit_band(int band_number);
 float get_multiplier_band(void);
 void get_tolerance_band(float *tolerance_percent);
 void print_resistance(float r);
+void decoding_animation(void);
 
 
 // resistor decoder menu items
 void menu_resistor_decoder(void);
 void menu_show_color_table(void);
 void menu_help(void);
+
 
 // main function
 int main(void) {
@@ -88,6 +90,10 @@ void print_resistance(float r) {
         printf("%.2f Ω\n", r);
 }
 
+void decoding_animation(void) {
+    printf("\nDecoding...\n\n");
+}
+
 // menu item functions
 void menu_resistor_decoder(void) {
     int digit1 = get_digit_band(1);
@@ -95,6 +101,8 @@ void menu_resistor_decoder(void) {
     float multiplier = get_multiplier_band();
     float tolerance;
     get_tolerance_band(&tolerance);
+    decoding_animation();
+
 
     int base = (digit1 * 10) + digit2;
     float resistance = base * multiplier;
@@ -272,8 +280,6 @@ void get_tolerance_band(float *tolerance_percent) {
             printf("Invalid input, defaulting to Gold (±5%%)\n");
             *tolerance_percent = 0.05f;
     }
-
-
 }
 
 
