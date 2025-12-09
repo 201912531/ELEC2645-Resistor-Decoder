@@ -115,9 +115,26 @@ void menu_resistor_decoder(void) {
 
 
 void menu_show_color_table(void) {
-  printf("\n not done");
-  go_back_to_main();
+    printf("\n===================== Color Code Table =====================\n");
+    printf("Digit (Bands 1 & 2)  Multiplier (Band 3)   Tolerance (Band 4)\n");
+    printf("--------------------------------------------------------------\n");
+    printf("Black   = 0          x1                      N/A\n");
+    printf("Brown   = 1          x10                     ±1%%\n");
+    printf("Red     = 2          x100                    ±2%%\n");
+    printf("Orange  = 3          x1,000                  N/A\n");
+    printf("Yellow  = 4          x10,000                 N/A\n");
+    printf("Green   = 5          x100,000                ±0.5%%\n");
+    printf("Blue    = 6          x1,000,000              ±0.25%%\n");
+    printf("Violet  = 7          x10,000,000             ±0.1%%\n");
+    printf("Grey    = 8          x100,000,000            ±0.05%%\n");
+    printf("White   = 9          x1,000,000,000          N/A\n");
+    printf("Gold    = N/A        x0.1                    ±5%%\n");
+    printf("Silver  = N/A        x0.01                   ±10%%\n");
+    printf("==============================================================\n");
+
+    go_back_to_main();
 }
+
 
 void menu_help(void) {
   printf("\n not done");
@@ -128,7 +145,7 @@ void menu_help(void) {
 int get_digit_band(int band_number) {
     int choice;
 
-    printf("\nSelect color for digit band %d:\n", band_number);
+    printf("\nSelect color of digit band %d:\n", band_number);
     printf("0: Black\n");
     printf("1: Brown\n");
     printf("2: Red\n");
@@ -152,20 +169,19 @@ int get_digit_band(int band_number) {
 
 float get_multiplier_band(void) {
   int choice;
-  printf("\nSelect colour for multiplier band (3rd band):\n");
-  printf("0: Black  (x1)\n");
-  printf("1: Brown  (x10)\n");
-  printf("2: Red    (x100)\n");
-  printf("3: Orange (x1,000)\n");
-  printf("4: Yellow (x10,000)\n");
-  printf("5: Green  (x100,000)\n");
-  printf("6: Blue   (x1,000,000)\n");
-  printf("7: Violet (x10,000,000)\n");
-  printf("8: Grey   (x100,000,000)\n");
-  printf("9: White  (x1,000,000,000)\n");
-  printf("10: Gold  (x0.1)\n");
-  printf("11: Silver(x0.01)\n");
-  printf("Enter choice (0-11): ");
+  printf("\nSelect colour of 3rd band (multipler band):\n");
+  printf("0: Black\n");
+  printf("1: Brown\n");
+  printf("2: Red\n");
+  printf("3: Orange\n");
+  printf("4: Yellow\n");
+  printf("5: Green\n");
+  printf("6: Blue\n");
+  printf("7: Violet\n");
+  printf("8: Grey\n");
+  printf("9: White\n");
+  printf("10: Gold\n");
+  printf("11: Silver\n");
   scanf("%d", &choice);
   
   switch (choice) {
@@ -189,16 +205,15 @@ float get_multiplier_band(void) {
 
 void get_tolerance_band(float *tolerance_percent) {
   int choice;
-  printf("\nSelect tolerance band (4th band):\n");
-  printf("1: Brown  (±1%%)\n");
-  printf("2: Red    (±2%%)\n");
-  printf("3: Green  (±0.5%%)\n");
-  printf("4: Blue   (±0.25%%)\n");
-  printf("5: Violet (±0.1%%)\n");
-  printf("6: Grey   (±0.05%%)\n");
-  printf("7: Gold   (±5%%)\n");
-  printf("8: Silver (±10%%)\n");
-  printf("Enter choice (1-8): ");
+  printf("\nSelect color of 4th band (tolerance band):\n");
+  printf("1: Brown\n");
+  printf("2: Red\n");
+  printf("3: Green\n");
+  printf("4: Blue\n");
+  printf("5: Violet\n");
+  printf("6: Grey\n");
+  printf("7: Gold\n");
+  printf("8: Silver\n");
   scanf("%d", &choice);
 
   switch(choice) {
