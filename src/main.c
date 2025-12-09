@@ -17,9 +17,11 @@ void save_results(int base, float multiplier, float resistance, float tolerance,
 
 
 
+
 // resistor decoder menu items
 void menu_resistor_decoder(void);
 void menu_show_color_table(void);
+void menu_view_saved_results(void);
 void menu_help(void);
 
 
@@ -46,31 +48,35 @@ int get_user_input(void) {
 void select_menu_item(int input) {
   switch (input) {
     case 1:
-      menu_resistor_decoder(); 
+      menu_resistor_decoder();
       break;
-    case 2: 
-      menu_show_color_table(); 
+    case 2:
+      menu_show_color_table();
       break;
-    case 3: 
-      menu_help(); 
+    case 3:
+      menu_view_saved_results();
       break;
-    case 4: 
-      printf("Exiting program ... \n");
+    case 4:
+      menu_help();
+      break;
+    case 5:
+      printf("Exiting program... \n");
       exit(0);
     default:
       printf("\nInvalid selection. Please choose an option from the menu.\n");
-      main_menu();  // restart menu
+      main_menu();
       break;
-  
-  }     
+  }
 }
+   
 
 void print_main_menu(void) {
   printf("\n Hi, I'm your lab assistant bot. Please choose an option from the menu items below:\n");
   printf("1.) Automatic resistor decoder\n");
   printf("2.) Show color table\n");
-  printf("3.) Help\n");
-  printf("4.) Exit \n");
+  printf("3.) View saved results\n");
+  printf("4.) Help\n");
+  printf("5.) Exit \n");
   printf("--------------------------\n");
 }
 
@@ -192,6 +198,30 @@ void menu_help(void) {
     go_back_to_main();
 }
 
+void menu_view_saved_results(void) {
+    FILE *file = fopen("saved_results.txt", "r");
+
+    printf("\n================ Saved Results ================\n");
+
+    if (file == NULL) {
+        printf("No saved results found.\n");
+        printf("================================================\n");
+        go_back_to_main();
+        return;
+    }
+
+    char line[256];
+
+    while (fgets(line, sizeof(line), file)) {
+        printf("%s", line);
+    }
+
+    fclose(file);
+
+    printf("================================================\n");
+
+    go_back_to_main();
+}
 
 
 // resistor decoder functions
