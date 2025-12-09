@@ -173,6 +173,7 @@ void menu_help(void) {
 // resistor decoder functions
 int get_digit_band(int band_number) {
     int choice;
+    int min_allowed = 0;
 
     printf("\nSelect color of digit band %d:\n", band_number);
     printf("0: Black\n");
@@ -185,16 +186,27 @@ int get_digit_band(int band_number) {
     printf("7: Violet\n");
     printf("8: Grey\n");
     printf("9: White\n");
-    printf("Enter choice (0-9): ");
-    scanf("%d", &choice);
 
-  if (choice < 0 || choice > 9) {
-    printf("invalid choice, defaulting to black (0) \n");
-    choice = 0;
-  }
+    if (band_number == 1) {
+        printf("Note: Band 1 cannot be black (0).\n");
+        min_allowed = 1;   // band 1 must be 1–9
+    } else {
+        min_allowed = 0;   // band 2 can be 0–9
+    }
 
-  return choice;
+    do {
+        printf("Enter choice (%d-9): ", min_allowed);
+        scanf("%d", &choice);
+
+        if (choice < min_allowed || choice > 9) {
+            printf("Invalid choice. Please enter a number between %d and 9.\n", min_allowed);
+        }
+
+    } while (choice < min_allowed || choice > 9);
+
+    return choice;
 }
+
 
 float get_multiplier_band(void) {
   int choice;
